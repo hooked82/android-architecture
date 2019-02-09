@@ -1,0 +1,90 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion buildVersions.compileSdk
+    buildToolsVersion buildVersions.buildTools
+
+    defaultConfig {
+        minSdkVersion buildVersions.minSdk
+        targetSdkVersion buildVersions.targetSdk
+        applicationId "com.hookedroid.androidarchitecture"
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField 'String', 'API_URL', '"https://www.someurl.com"'
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            debuggable true
+        }
+    }
+    dataBinding {
+        enabled true
+    }
+}
+
+dependencies {
+    // Annotation Processors
+    kapt deps.dagger.compiler
+    kapt deps.dagger.androidSupportCompiler
+    kapt deps.lifecycle.compiler
+    kapt deps.room.compiler
+
+    // Kotlin
+    implementation deps.kotlin.stdlib
+
+    // Support Libraries
+    implementation deps.androidx.appcompat
+    implementation deps.androidx.cardview
+    implementation deps.androidx.constraint
+    implementation deps.androidx.material
+    implementation deps.androidx.preference
+    implementation deps.androidx.recyclerview
+
+    // AndroidX Lifecycle
+    implementation deps.lifecycle.extensions
+
+    // AndroidX Room
+    implementation deps.room.runtime
+
+    // Paging
+    implementation deps.paging.core
+
+    // Dependency Injection
+    implementation deps.dagger.runtime
+    implementation deps.dagger.android
+    implementation deps.dagger.androidSupport
+
+    // 3rd Party Libraries
+    implementation deps.multidex
+    implementation deps.okhttp.logging
+    implementation deps.retrofit.runtime
+    implementation deps.retrofit.rxAdapter
+    implementation deps.rx.android
+    implementation deps.rx.java
+    implementation deps.rx.loader
+
+    // Unit Tests
+    testImplementation deps.lifecycle.test
+    testImplementation deps.room.test
+    testImplementation deps.paging.test
+
+    // UI Tests
+    androidTestImplementation deps.androidx.testExt
+    androidTestImplementation deps.androidx.testRunner
+    androidTestImplementation deps.androidx.testRules
+    androidTestImplementation deps.espresso.core
+    androidTestImplementation deps.espresso.idlingConcurrent
+    androidTestImplementation deps.espresso.idlingResource
+    androidTestImplementation deps.lifecycle.test
+    androidTestImplementation deps.okhttp.runtime
+    androidTestImplementation deps.test.junit
+    androidTestImplementation deps.test.mockitoCore
+}

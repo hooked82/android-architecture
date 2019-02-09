@@ -1,0 +1,19 @@
+
+buildscript {
+    apply from: 'dependencies.gradle'
+
+    addRepos(repositories)
+    dependencies {
+        classpath deps.gradlePlugin
+        classpath deps.googleServicesPlugin
+        classpath deps.kotlin.plugin
+    }
+}
+
+allprojects {
+    addRepos(repositories)
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
