@@ -1,5 +1,6 @@
 package com.hookedroid.androidarchitecture.api.model
 
+import androidx.recyclerview.widget.DiffUtil
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -15,4 +16,17 @@ data class Character(@PrimaryKey val id: Int,
                      val imageUrl: String,
                      val episodes: List<String>,
                      val url: String,
-                     val createdDate: String)
+                     val createdDate: String,
+                     val position: Int) {
+    companion object {
+        val diffCallback = object : DiffUtil.ItemCallback<Character>() {
+            override fun areItemsTheSame(oldItem: Character, newItem: Character): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(oldItem: Character, newItem: Character): Boolean {
+                return oldItem == newItem
+            }
+        }
+    }
+}

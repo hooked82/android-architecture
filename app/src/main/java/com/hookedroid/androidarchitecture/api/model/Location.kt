@@ -10,4 +10,5 @@ data class Location(@PrimaryKey val id: Int,
                     val dimension: String,
                     val residents: List<String>,
                     val url: String,
-                    val createdDate: String)
+                    val createdDate: String,
+                    val position: Int)

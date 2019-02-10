@@ -3,6 +3,7 @@ package com.hookedroid.androidarchitecture.di
 import android.app.Application
 import androidx.room.Room
 import com.hookedroid.androidarchitecture.BuildConfig
+import com.hookedroid.androidarchitecture.api.CharacterApi
 import com.hookedroid.androidarchitecture.data.dao.CharacterDao
 import com.hookedroid.androidarchitecture.data.db.ArchDb
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -38,6 +39,12 @@ open class AppModule {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
                 .client(getOkHttpClient())
                 .build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideCharacterApi(retrofit: Retrofit): CharacterApi {
+        return retrofit.create(CharacterApi::class.java)
     }
 
     private fun getOkHttpClient(): OkHttpClient {

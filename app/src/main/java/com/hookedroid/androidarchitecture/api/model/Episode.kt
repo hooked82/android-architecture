@@ -10,4 +10,5 @@ data class Episode(@PrimaryKey val id: Int,
                    val code: String,
                    val characters: List<String>,
                    val url: String,
-                   val createdDate: String)
+                   val createdDate: String,
+                   val position: Int)
