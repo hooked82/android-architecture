@@ -1,4 +1,4 @@
-package com.hookedroid.androidarchitecture.notes
+package com.hookedroid.androidarchitecture.character
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.hookedroid.androidarchitecture.BaseFragment
 
-class NotesFragment : BaseFragment<NotesViewModel>() {
+class CharactersFragment : BaseFragment<CharactersViewModel>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

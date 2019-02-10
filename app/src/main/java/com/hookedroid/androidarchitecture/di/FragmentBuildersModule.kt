@@ -1,6 +1,6 @@
 package com.hookedroid.androidarchitecture.di
 
-import com.hookedroid.androidarchitecture.notes.NotesFragment
+import com.hookedroid.androidarchitecture.character.CharactersFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -8,5 +8,5 @@ import dagger.android.ContributesAndroidInjector
 abstract class FragmentBuildersModule {
 
     @ContributesAndroidInjector
-    abstract fun contributeNotesFragment(): NotesFragment
+    abstract fun contributeCharactersFragment(): CharactersFragment
 }

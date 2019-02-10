@@ -2,7 +2,7 @@ package com.hookedroid.androidarchitecture.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.hookedroid.androidarchitecture.notes.NotesViewModel
+import com.hookedroid.androidarchitecture.character.CharactersViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -12,8 +12,8 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(NotesViewModel::class)
-    abstract fun bindNotesViewModel(notesViewModel: NotesViewModel): ViewModel
+    @ViewModelKey(CharactersViewModel::class)
+    abstract fun bindCharactersViewModel(charactersViewModel: CharactersViewModel): ViewModel
 
     @Binds
     abstract fun bindViewModelFactory(factory: ArchViewModelFactory): ViewModelProvider.Factory

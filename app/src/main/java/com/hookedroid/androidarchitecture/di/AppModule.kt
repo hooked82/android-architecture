@@ -3,7 +3,7 @@ package com.hookedroid.androidarchitecture.di
 import android.app.Application
 import androidx.room.Room
 import com.hookedroid.androidarchitecture.BuildConfig
-import com.hookedroid.androidarchitecture.data.dao.NoteDao
+import com.hookedroid.androidarchitecture.data.dao.CharacterDao
 import com.hookedroid.androidarchitecture.data.db.ArchDb
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import dagger.Module
@@ -15,10 +15,10 @@ import retrofit2.Retrofit
 import javax.inject.Singleton
 
 @Module(includes = [RepositoryModule::class, ViewModelModule::class])
-class AppModule {
+open class AppModule {
     @Singleton
     @Provides
-    fun provideDb(app: Application): ArchDb {
+    open fun provideDb(app: Application): ArchDb {
         return Room.databaseBuilder(app, ArchDb::class.java, "arch.db")
                 .fallbackToDestructiveMigration()
                 .build()
@@ -26,13 +26,13 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideNoteDao(db: ArchDb): NoteDao {
-        return db.noteDao()
+    open fun provideCharacterDao(db: ArchDb): CharacterDao {
+        return db.characterDao()
     }
 
     @Singleton
     @Provides
-    fun provideRetrofit(): Retrofit {
+    open fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
                 .baseUrl(BuildConfig.API_URL)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
