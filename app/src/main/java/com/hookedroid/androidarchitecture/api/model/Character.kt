@@ -3,6 +3,7 @@ package com.hookedroid.androidarchitecture.api.model
 import androidx.recyclerview.widget.DiffUtil
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.gson.annotations.SerializedName
 
 @Entity
 data class Character(@PrimaryKey val id: Int,
@@ -12,11 +13,11 @@ data class Character(@PrimaryKey val id: Int,
                      val type: String,
                      val gender: String,
                      val origin: Origin,
-                     val lastKnownLocation: Origin,
-                     val imageUrl: String,
-                     val episodes: List<String>,
+                     @SerializedName("location") val lastKnownLocation: Origin,
+                     @SerializedName("image") val imageUrl: String,
+                     @SerializedName("episode") val episodes: List<String>,
                      val url: String,
-                     val createdDate: String,
+                     @SerializedName("created") val createdDate: String,
                      val position: Int) {
     companion object {
         val diffCallback = object : DiffUtil.ItemCallback<Character>() {

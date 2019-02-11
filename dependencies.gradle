@@ -7,7 +7,7 @@ versions.cardview = "1.0.0"
 versions.recyclerview = "1.0.0"
 versions.preference = "1.0.0"
 versions.material = "1.0.0"
-versions.constraint = "1.1.2"
+versions.constraint = "1.1.3"
 versions.testExt = "1.1.0"
 versions.testRules = "1.1.0"
 versions.testRunner = "1.1.0"
@@ -23,13 +23,14 @@ versions.playServicesMaps = "16.0.0"
 versions.lifecycle = "2.0.0"
 versions.room = "2.0.0"
 versions.paging = "2.1.0"
+versions.navigation = "1.0.0-beta01"
 
 versions.firebaseAnalytics = "16.0.4"
 versions.firebaseCore = "16.0.4"
 versions.firebaseMessaging = "17.3.4"
 versions.dagger = "2.16"
 
-versions.glide = "3.7.0"
+versions.glide = "4.8.0"
 versions.exoplayer = "2.9.1"
 versions.gson = "2.8.5"
 versions.crashlytics = "2.9.3"
@@ -70,6 +71,11 @@ paging.core = "androidx.paging:paging-runtime-ktx:$versions.paging"
 paging.test = "androidx.paging:paging-common-ktx:$versions.paging"
 deps.paging = paging
 
+def navigation = [:]
+navigation.fragment = "android.arch.navigation:navigation-fragment-ktx:$versions.navigation"
+navigation.ui = "android.arch.navigation:navigation-ui-ktx:$versions.navigation"
+deps.navigation = navigation
+
 def androidx = [:]
 androidx.appcompat = "androidx.appcompat:appcompat:$versions.appcompat"
 androidx.cardview = "androidx.cardview:cardview:$versions.cardview"
@@ -108,6 +114,7 @@ espresso.idlingResource = "androidx.test.espresso:espresso-idling-resource:$vers
 deps.espresso = espresso
 
 def glide = [:]
+glide.compiler = "com.github.bumptech.glide:compiler:$versions.glide"
 glide.runtime = "com.github.bumptech.glide:glide:$versions.glide"
 deps.glide = glide
 
@@ -134,6 +141,7 @@ rx.loader = "com.l4digital.rxloader:rxloader:$versions.rxloader"
 deps.rx = rx
 
 def retrofit = [:]
+retrofit.gsonConverter = "com.squareup.retrofit2:converter-gson:$versions.retrofit"
 retrofit.runtime = "com.squareup.retrofit2:retrofit:$versions.retrofit"
 retrofit.rxAdapter = "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:$versions.retrofitRxAdapter"
 deps.retrofit = retrofit
@@ -150,6 +158,7 @@ deps.kotlin = kotlin
 
 deps.gradlePlugin = "com.android.tools.build:gradle:$versions.gradlePlugin"
 deps.googleServicesPlugin = "com.google.gms:google-services:$versions.googleServicesPlugin"
+deps.navigationSafeArgsPlugin = "android.arch.navigation:navigation-safe-args-gradle-plugin:$versions.navigation"
 deps.multidex = "androidx.multidex:multidex:$versions.multidex"
 deps.gson = "com.google.code.gson:gson:$versions.gson"
 deps.crashlytics = "com.crashlytics.sdk.android:crashlytics:$versions.crashlytics"

@@ -13,6 +13,7 @@ import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module(includes = [RepositoryModule::class, ViewModelModule::class])
@@ -35,10 +36,11 @@ open class AppModule {
     @Provides
     open fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
-                .baseUrl(BuildConfig.API_URL)
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
-                .client(getOkHttpClient())
-                .build()
+            .baseUrl(BuildConfig.API_URL)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(getOkHttpClient())
+            .build()
     }
 
     @Singleton

@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.Application
 import com.hookedroid.androidarchitecture.di.AppComponent
 import com.hookedroid.androidarchitecture.di.AppInjector
+import com.hookedroid.androidarchitecture.di.AppModule
 import com.hookedroid.androidarchitecture.di.DaggerAppComponent
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
@@ -19,7 +20,7 @@ class ArchApplication : Application(), HasActivityInjector {
     override fun onCreate() {
         super.onCreate()
 
-        mAppComponent = DaggerAppComponent.builder().application(this).build().apply {
+        mAppComponent = DaggerAppComponent.builder().application(this).appModule(AppModule()).build().apply {
             inject(this@ArchApplication)
             AppInjector.init(this@ArchApplication)
         }

@@ -2,6 +2,7 @@ package com.hookedroid.androidarchitecture.api.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.gson.annotations.SerializedName
 
 @Entity
 data class Location(@PrimaryKey val id: Int,
@@ -10,5 +11,5 @@ data class Location(@PrimaryKey val id: Int,
                     val dimension: String,
                     val residents: List<String>,
                     val url: String,
-                    val createdDate: String,
+                    @SerializedName("created") val createdDate: String,
                     val position: Int)

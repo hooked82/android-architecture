@@ -1,6 +1,22 @@
 <resources>
     <string name="app_name">Android Architecture</string>
 
-    <!-- PREFERENCES -->
+    <!-- Titles -->
+    <string name="title_characters">Characters</string>
+    <string name="title_locations">Locations</string>
+    <string name="title_episodes">Episodes</string>
+
+    <!-- Preferences -->
     <string name="settings_key_dark_mode">pref_dark_mode</string>
+
+    <!-- Characters -->
+    <string name="character_status_format">Status: %s</string>
+    <string name="character_species_format">Species: %s</string>
+    <string name="character_origin_format">Origin: %s</string>
+
+    <!-- Locations -->
+
+
+    <!-- Episodes -->
+    <string name="episode_air_date_format">Air Date: %s</string>
 </resources>

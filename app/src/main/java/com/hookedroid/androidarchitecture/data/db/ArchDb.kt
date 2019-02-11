@@ -11,7 +11,7 @@ import com.hookedroid.androidarchitecture.data.dao.CharacterDao
 
 @Database(
     entities = [ Character::class, Location::class, Episode::class ],
-    version = 2,
+    version = 4,
     exportSchema = false
 )
 @TypeConverters(RoomConverters::class)

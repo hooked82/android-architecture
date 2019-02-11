@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="com.hookedroid.androidarchitecture.api.model.Character" />
+            type="com.hookedroid.androidarchitecture.api.model.Episode" />
 
     </data>
 
@@ -28,7 +28,7 @@
             android:padding="12dp">
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/character_image"
+                android:id="@+id/episode_image"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -39,45 +39,38 @@
                 tools:src="@tools:sample/avatars" />
 
             <TextView
-                android:id="@+id/character_name"
-                android:layout_width="wrap_content"
+                android:id="@+id/episode_name"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:ellipsize="end"
+                android:maxLines="2"
                 android:text="@{viewModel.name}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-                app:layout_constraintLeft_toRightOf="@id/character_image"
-                app:layout_constraintTop_toTopOf="@id/character_image"
-                tools:text="Rick Sanchez" />
+                app:layout_constraintLeft_toRightOf="@id/episode_image"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/episode_image"
+                tools:text="Close Rick-counters of the Rick Kind" />
 
             <TextView
-                android:id="@+id/character_status"
+                android:id="@+id/episode_code"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{@string/character_status_format(viewModel.status)}"
+                android:text="@{viewModel.code}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-                app:layout_constraintLeft_toLeftOf="@id/character_name"
-                app:layout_constraintTop_toBottomOf="@id/character_name"
-                tools:text="Status: Alive" />
+                app:layout_constraintLeft_toLeftOf="@id/episode_name"
+                app:layout_constraintTop_toBottomOf="@id/episode_name"
+                tools:text="S01E01" />
 
             <TextView
-                android:id="@+id/character_species"
+                android:id="@+id/episode_air_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{@string/character_species_format(viewModel.status)}"
+                android:text="@{@string/episode_air_date_format(viewModel.airDate)}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-                app:layout_constraintLeft_toLeftOf="@id/character_status"
-                app:layout_constraintTop_toBottomOf="@id/character_status"
-                tools:text="Species: Human" />
-
-            <TextView
-                android:id="@+id/character_origin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{@string/character_origin_format(viewModel.status)}"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-                app:layout_constraintLeft_toLeftOf="@id/character_species"
-                app:layout_constraintTop_toBottomOf="@id/character_species"
-                tools:text="Origin: Earth (C-137)" />
+                app:layout_constraintLeft_toLeftOf="@id/episode_code"
+                app:layout_constraintTop_toBottomOf="@id/episode_code"
+                tools:text="Air Date: April 7, 2014" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

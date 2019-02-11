@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
     compileSdkVersion buildVersions.compileSdk
@@ -14,7 +15,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField 'String', 'API_URL', '"https://rickandmortyapi.com"'
+        buildConfigField 'String', 'API_URL', '"https://rickandmortyapi.com/"'
     }
     buildTypes {
         release {
@@ -34,6 +35,7 @@ dependencies {
     // Annotation Processors
     kapt deps.dagger.compiler
     kapt deps.dagger.androidSupportCompiler
+    kapt deps.glide.compiler
     kapt deps.lifecycle.compiler
     kapt deps.room.compiler
 
@@ -57,14 +59,21 @@ dependencies {
     // Paging
     implementation deps.paging.core
 
+    // Navigation
+    implementation deps.navigation.fragment
+    implementation deps.navigation.ui
+
     // Dependency Injection
     implementation deps.dagger.runtime
     implementation deps.dagger.android
     implementation deps.dagger.androidSupport
 
     // 3rd Party Libraries
+    implementation deps.glide.runtime
+    implementation deps.gson
     implementation deps.multidex
     implementation deps.okhttp.logging
+    implementation deps.retrofit.gsonConverter
     implementation deps.retrofit.runtime
     implementation deps.retrofit.rxAdapter
     implementation deps.rx.android

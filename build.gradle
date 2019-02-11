@@ -7,6 +7,7 @@ buildscript {
         classpath deps.gradlePlugin
         classpath deps.googleServicesPlugin
         classpath deps.kotlin.plugin
+        classpath deps.navigationSafeArgsPlugin
     }
 }
 
