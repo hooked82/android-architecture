@@ -1,7 +1,6 @@
 package com.hookedroid.androidarchitecture.character
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.hookedroid.androidarchitecture.BaseFragment
 import com.hookedroid.androidarchitecture.adapter.BasePagedListAdapter
 import com.hookedroid.androidarchitecture.api.model.Character
+import com.hookedroid.androidarchitecture.data.NetworkState
 import com.hookedroid.androidarchitecture.databinding.FragmentCharactersBinding
+import kotlinx.android.synthetic.main.fragment_characters.*
 
 class CharactersFragment : BaseFragment<CharactersViewModel>(), BasePagedListAdapter.OnItemClickListener<Character> {
 
@@ -32,16 +33,27 @@ class CharactersFragment : BaseFragment<CharactersViewModel>(), BasePagedListAda
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        initSwipeToRefresh()
+
         val adapter = CharacterPagedListAdapter(requireContext())
 
         mBinding.charactersList.layoutManager = LinearLayoutManager(requireContext())
         mBinding.charactersList.adapter = adapter
 
         mViewModel.characters.observe(this, Observer {
-            Log.d(TAG, "Observing Characters")
             adapter.submitList(it)
         })
         mViewModel.showCharacters(1)
+    }
+
+    private fun initSwipeToRefresh() {
+        mViewModel.refreshState.observe(this, Observer {
+            refresh_layout.isRefreshing = it == NetworkState.LOADING
+        })
+
+        refresh_layout.setOnRefreshListener {
+            mViewModel.refresh()
+        }
     }
 
     override fun onItemClicked(item: Character) {

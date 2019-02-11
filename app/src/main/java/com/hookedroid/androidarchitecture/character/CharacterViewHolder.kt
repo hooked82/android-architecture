@@ -15,6 +15,10 @@ class CharacterViewHolder(private val mBinding: ItemCharacterBinding)
     }
 
     override fun clear() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        mBinding.characterName.text = ""
+        mBinding.characterOrigin.text = ""
+        mBinding.characterSpecies.text = ""
+        mBinding.characterStatus.text = ""
+        mBinding.characterImage.setImageResource(0)
     }
 }

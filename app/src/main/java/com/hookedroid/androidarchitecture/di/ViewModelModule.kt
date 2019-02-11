@@ -19,12 +19,12 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(CharactersViewModel::class)
+    @ViewModelKey(LocationsViewModel::class)
     abstract fun bindLocationsViewModel(locationsViewModel: LocationsViewModel): ViewModel
 
     @Binds
     @IntoMap
-    @ViewModelKey(CharactersViewModel::class)
+    @ViewModelKey(EpisodesViewModel::class)
     abstract fun bindEpisodesViewModel(episodesViewModel: EpisodesViewModel): ViewModel
 
     @Binds
