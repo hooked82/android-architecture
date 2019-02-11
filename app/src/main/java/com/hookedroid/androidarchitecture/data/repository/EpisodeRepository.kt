@@ -18,9 +18,9 @@ import retrofit2.Callback
 import retrofit2.Response
 import javax.inject.Inject
 
-class CharacterRepository @Inject constructor(private val db: ArchDb,
-                                              private val characterApi: CharacterApi,
-                                              private val appExecutors: AppExecutors) {
+class EpisodeRepository @Inject constructor(private val db: ArchDb,
+                                            private val characterApi: CharacterApi,
+                                            private val appExecutors: AppExecutors) {
 
     fun getCharacter(id: Int) : LiveData<Character> {
         return MutableLiveData<Character>()
