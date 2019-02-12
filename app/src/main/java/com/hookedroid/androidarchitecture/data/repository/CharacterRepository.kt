@@ -8,7 +8,7 @@ import androidx.paging.toLiveData
 import com.hookedroid.androidarchitecture.api.CharacterApi
 import com.hookedroid.androidarchitecture.api.model.ApiResponse
 import com.hookedroid.androidarchitecture.api.model.Character
-import com.hookedroid.androidarchitecture.data.BoundaryCallback
+import com.hookedroid.androidarchitecture.data.CharacterBoundaryCallback
 import com.hookedroid.androidarchitecture.data.Listing
 import com.hookedroid.androidarchitecture.data.NetworkState
 import com.hookedroid.androidarchitecture.data.db.ArchDb
@@ -29,7 +29,7 @@ class CharacterRepository @Inject constructor(private val db: ArchDb,
 
     @MainThread
     fun getCharacters(page: Int): Listing<Character> {
-        val boundaryCallback = BoundaryCallback(
+        val boundaryCallback = CharacterBoundaryCallback(
             characterApi,
             appExecutors,
             this::insertResultsIntoDb,
@@ -92,6 +92,6 @@ class CharacterRepository @Inject constructor(private val db: ArchDb,
     }
 
     companion object {
-        private const val DEFAULT_NETWORK_PAGE_SIZE = 4
+        private const val DEFAULT_NETWORK_PAGE_SIZE = 20
     }
 }

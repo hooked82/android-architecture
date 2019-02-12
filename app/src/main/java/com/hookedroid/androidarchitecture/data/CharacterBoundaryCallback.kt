@@ -11,7 +11,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class BoundaryCallback(
+class CharacterBoundaryCallback(
     private val characterApi: CharacterApi,
     private val appExecutors: AppExecutors,
     private val handleResponse: (ApiResponse<Character>?) -> Unit,
@@ -28,7 +28,7 @@ class BoundaryCallback(
 
     override fun onItemAtEndLoaded(itemAtEnd: Character) {
         helper.runIfNotRunning(PagingRequestHelper.RequestType.AFTER) {
-            characterApi.getCharacters(networkPage).enqueue(createWebserviceCallback(it))
+            characterApi.getCharacters((itemAtEnd.id / 20) + 1).enqueue(createWebserviceCallback(it))
         }
     }
 
