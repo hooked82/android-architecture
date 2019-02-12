@@ -43,6 +43,9 @@ class CharactersFragment : BaseFragment<CharactersViewModel>(), BasePagedListAda
         mViewModel.characters.observe(this, Observer {
             adapter.submitList(it)
         })
+        mViewModel.reachedEnd.observe(this, Observer {
+            adapter.hasReachedEnd()
+        })
         mViewModel.showCharacters(1)
     }
 

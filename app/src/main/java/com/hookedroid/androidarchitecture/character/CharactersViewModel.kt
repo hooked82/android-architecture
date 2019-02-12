@@ -1,5 +1,6 @@
 package com.hookedroid.androidarchitecture.character
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
@@ -9,8 +10,14 @@ import javax.inject.Inject
 class CharactersViewModel @Inject constructor(characterRepository: CharacterRepository) : ViewModel() {
 
     private val page = MutableLiveData<Int>()
+    val reachedEnd = MutableLiveData<Boolean>()
     private val repoResult = Transformations.map(page) {
-        characterRepository.getCharacters(it)
+        characterRepository.getByPage(it, this::handleReachedEndResponse)
+    }
+
+    fun handleReachedEndResponse() {
+        Log.d("CharactersViewModel", "View Model Has Reached The End")
+        reachedEnd.value = true
     }
 
     val characters = Transformations.switchMap(repoResult) { it.pagedList }

@@ -1,10 +1,12 @@
 package com.hookedroid.androidarchitecture.data
 
+import android.util.Log
 import androidx.paging.PagedList
 import androidx.paging.PagingRequestHelper
 import com.hookedroid.androidarchitecture.api.CharacterApi
 import com.hookedroid.androidarchitecture.api.model.ApiResponse
 import com.hookedroid.androidarchitecture.api.model.Character
+import com.hookedroid.androidarchitecture.data.repository.CharacterRepository
 import com.hookedroid.androidarchitecture.util.AppExecutors
 import com.hookedroid.androidarchitecture.util.createStatusLiveData
 import retrofit2.Call
@@ -15,20 +17,28 @@ class CharacterBoundaryCallback(
     private val characterApi: CharacterApi,
     private val appExecutors: AppExecutors,
     private val handleResponse: (ApiResponse<Character>?) -> Unit,
+    private val handleEndResponse: () -> Unit,
     private val networkPage: Int) : PagedList.BoundaryCallback<Character>() {
 
     val helper = PagingRequestHelper(appExecutors.diskIO())
     val networkState = helper.createStatusLiveData()
+    var reachedEnd = false
 
     override fun onZeroItemsLoaded() {
         helper.runIfNotRunning(PagingRequestHelper.RequestType.INITIAL) {
-            characterApi.getCharacters(1).enqueue(createWebserviceCallback(it))
+            characterApi.getCharacters(networkPage).enqueue(createWebserviceCallback(it))
         }
     }
 
     override fun onItemAtEndLoaded(itemAtEnd: Character) {
-        helper.runIfNotRunning(PagingRequestHelper.RequestType.AFTER) {
-            characterApi.getCharacters((itemAtEnd.id / 20) + 1).enqueue(createWebserviceCallback(it))
+        if (!reachedEnd) {
+            helper.runIfNotRunning(PagingRequestHelper.RequestType.AFTER) {
+                characterApi.getCharacters((itemAtEnd.id / CharacterRepository.DEFAULT_NETWORK_PAGE_SIZE) + 1)
+                    .enqueue(createWebserviceCallback(it))
+            }
+        } else {
+            handleEndResponse()
+            Log.d("BoundaryCallback", "REACHED THE END")
         }
     }
 
@@ -49,9 +59,13 @@ class CharacterBoundaryCallback(
                 it.recordFailure(t)
             }
 
-            override fun onResponse(
-                call: Call<ApiResponse<Character>>,
-                response: Response<ApiResponse<Character>>) {
+            override fun onResponse(call: Call<ApiResponse<Character>>, response: Response<ApiResponse<Character>>) {
+                response.body()?.let {
+                    reachedEnd = it.results.size < CharacterRepository.DEFAULT_NETWORK_PAGE_SIZE
+                } ?: run {
+                    reachedEnd = true
+                }
+
                 insertItemsIntoDb(response, it)
             }
         }

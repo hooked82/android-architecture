@@ -19,6 +19,7 @@ class CharacterViewHolder(private val mBinding: ItemCharacterBinding)
         mBinding.characterOrigin.text = ""
         mBinding.characterSpecies.text = ""
         mBinding.characterStatus.text = ""
+        //TODO - Once Placeholders are turned on, see if invalidate() would work here or best way of clearing the image
         mBinding.characterImage.setImageResource(0)
     }
 }

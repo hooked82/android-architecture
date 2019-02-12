@@ -4,6 +4,7 @@ import androidx.annotation.MainThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
+import androidx.paging.PagedList
 import androidx.paging.toLiveData
 import com.hookedroid.androidarchitecture.api.CharacterApi
 import com.hookedroid.androidarchitecture.api.model.ApiResponse
@@ -20,19 +21,20 @@ import javax.inject.Inject
 
 class CharacterRepository @Inject constructor(private val db: ArchDb,
                                               private val characterApi: CharacterApi,
-                                              private val appExecutors: AppExecutors) {
+                                              private val appExecutors: AppExecutors) : Repository<Character> {
 
-    fun getCharacter(id: Int) : LiveData<Character> {
-        return MutableLiveData<Character>()
-//        return characterDao.getCharacter(id)
+    @MainThread
+    override fun getById(id: Int) : LiveData<Character> {
+        return db.characterDao().getCharacter(id)
     }
 
     @MainThread
-    fun getCharacters(page: Int): Listing<Character> {
+    override fun getByPage(page: Int, reachedEndResponse: () -> Unit): Listing<Character> {
         val boundaryCallback = CharacterBoundaryCallback(
             characterApi,
             appExecutors,
             this::insertResultsIntoDb,
+            reachedEndResponse,
             page
         )
 
@@ -42,7 +44,11 @@ class CharacterRepository @Inject constructor(private val db: ArchDb,
         }
 
         val livePagedList = db.characterDao().getCharacters().toLiveData(
-            pageSize = DEFAULT_NETWORK_PAGE_SIZE,
+            config = PagedList.Config.Builder()
+                .setPageSize(DEFAULT_NETWORK_PAGE_SIZE)
+                .setEnablePlaceholders(true)
+                .setPrefetchDistance(8)
+                .build(), //TODO - Started seeing what this was all about, continue where I left off
             boundaryCallback = boundaryCallback
         )
 
@@ -92,6 +98,6 @@ class CharacterRepository @Inject constructor(private val db: ArchDb,
     }
 
     companion object {
-        private const val DEFAULT_NETWORK_PAGE_SIZE = 20
+        const val DEFAULT_NETWORK_PAGE_SIZE = 20
     }
 }
