@@ -60,6 +60,8 @@ class CharacterBoundaryCallback(
             }
 
             override fun onResponse(call: Call<ApiResponse<Character>>, response: Response<ApiResponse<Character>>) {
+                //TODO - This logic isn't perfect as the last page may contain the exact amount we requested, but will
+                //work for now until a better solution is figured out.
                 response.body()?.let {
                     reachedEnd = it.results.size < CharacterRepository.DEFAULT_NETWORK_PAGE_SIZE
                 } ?: run {

@@ -6,6 +6,7 @@ data class NetworkState private constructor(
     companion object {
         val LOADED = NetworkState(Status.SUCCESS)
         val LOADING = NetworkState(Status.RUNNING)
+        val ENDED = NetworkState(Status.ENDED)
 
         fun error(message: String?) = NetworkState(Status.FAILED, message)
     }
@@ -14,5 +15,6 @@ data class NetworkState private constructor(
 enum class Status {
     RUNNING,
     SUCCESS,
-    FAILED
+    FAILED,
+    ENDED
 }

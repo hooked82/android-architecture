@@ -35,7 +35,9 @@ class CharactersFragment : BaseFragment<CharactersViewModel>(), BasePagedListAda
 
         initSwipeToRefresh()
 
-        val adapter = CharacterPagedListAdapter(requireContext())
+        val adapter = CharacterPagedListAdapter {
+            mViewModel.retry()
+        }
 
         mBinding.charactersList.layoutManager = LinearLayoutManager(requireContext())
         mBinding.charactersList.adapter = adapter
@@ -45,6 +47,9 @@ class CharactersFragment : BaseFragment<CharactersViewModel>(), BasePagedListAda
         })
         mViewModel.reachedEnd.observe(this, Observer {
             adapter.hasReachedEnd()
+        })
+        mViewModel.networkState.observe(this, Observer {
+            adapter.setNetworkState(it)
         })
         mViewModel.showCharacters(1)
     }

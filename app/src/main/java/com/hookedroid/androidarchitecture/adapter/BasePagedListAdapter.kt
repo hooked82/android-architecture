@@ -9,14 +9,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 
 abstract class BasePagedListAdapter<
         T,
-        L : BasePagedListAdapter.OnItemClickListener<T>,
-        VH : BaseViewHolder<T, L>>(context: Context,
+        L : BasePagedListAdapter.OnItemClickListener<T>>(context: Context,
                                    diffCallback: DiffUtil.ItemCallback<T>,
                                    private val listener: L? = null)
-    : PagedListAdapter<T, VH>(diffCallback) {
+    : PagedListAdapter<T, RecyclerView.ViewHolder>(diffCallback) {
 
     interface OnItemClickListener<T> {
         fun onItemClicked(item: T)
@@ -24,18 +24,18 @@ abstract class BasePagedListAdapter<
 
     private val mInflater: LayoutInflater = LayoutInflater.from(context)
 
-    abstract override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH
+    abstract override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder
 
-    override fun onBindViewHolder(holder: VH, position: Int) {
-        val item = getItem(position)
-
-        item?.let {
-            holder.onBind(item, listener)
-        } ?: run {
-            // Null defines a placeholder item.  Row will be invalidated when actual object is loaded from DB
-            holder.clear()
-        }
-    }
+//    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+//        val item = getItem(position)
+//
+//        item?.let {
+//            holder.onBind(item, listener)
+//        } ?: run {
+//            // Null defines a placeholder item.  Row will be invalidated when actual object is loaded from DB
+//            holder.clear()
+//        }
+//    }
 
     fun inflate(@LayoutRes layout: Int, parent: ViewGroup?, attachToRoot: Boolean = false): View {
         return mInflater.inflate(layout, parent, attachToRoot)
