@@ -1,6 +1,5 @@
 package com.hookedroid.androidarchitecture.util
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagingRequestHelper
 import com.hookedroid.androidarchitecture.data.NetworkState
@@ -11,7 +10,7 @@ private fun getErrorMessage(report: PagingRequestHelper.StatusReport): String {
     }.first()
 }
 
-fun PagingRequestHelper.createStatusLiveData(): LiveData<NetworkState> {
+fun PagingRequestHelper.createStatusLiveData(): MutableLiveData<NetworkState> {
     val liveData = MutableLiveData<NetworkState>()
     addListener { report ->
         when {

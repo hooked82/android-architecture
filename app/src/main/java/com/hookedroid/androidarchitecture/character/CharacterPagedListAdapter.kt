@@ -40,6 +40,8 @@ class CharacterPagedListAdapter(private val retryCallback: () -> Unit) : PagedLi
         return super.getItemCount() + if (hasExtraRow()) 1 else 0
     }
 
+    private fun hasExtraRow() = networkState != null && networkState != NetworkState.LOADED
+
     fun setNetworkState(newNetworkState: NetworkState?) {
         val previousState = this.networkState
         val hadExtraRow = hasExtraRow()
@@ -59,6 +61,4 @@ class CharacterPagedListAdapter(private val retryCallback: () -> Unit) : PagedLi
     fun hasReachedEnd() {
         hasReachedEnd = true
     }
-
-    private fun hasExtraRow() = networkState != null && networkState != NetworkState.LOADED
 }

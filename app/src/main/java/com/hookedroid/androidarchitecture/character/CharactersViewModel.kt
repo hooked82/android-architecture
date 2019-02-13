@@ -15,7 +15,7 @@ class CharactersViewModel @Inject constructor(characterRepository: CharacterRepo
         characterRepository.getByPage(it, this::handleReachedEndResponse)
     }
 
-    fun handleReachedEndResponse() {
+    private fun handleReachedEndResponse() {
         Log.d("CharactersViewModel", "View Model Has Reached The End")
         reachedEnd.value = true
     }

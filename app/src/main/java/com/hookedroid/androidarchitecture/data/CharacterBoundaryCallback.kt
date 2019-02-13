@@ -37,6 +37,7 @@ class CharacterBoundaryCallback(
                     .enqueue(createWebserviceCallback(it))
             }
         } else {
+            networkState.postValue(NetworkState.ENDED)
             handleEndResponse()
             Log.d("BoundaryCallback", "REACHED THE END")
         }
