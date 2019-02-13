@@ -2,25 +2,23 @@ package com.hookedroid.androidarchitecture.character
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.hookedroid.androidarchitecture.adapter.BasePagedListAdapter
-import com.hookedroid.androidarchitecture.adapter.BaseViewHolder
+import androidx.recyclerview.widget.RecyclerView
 import com.hookedroid.androidarchitecture.api.model.Character
 import com.hookedroid.androidarchitecture.databinding.ItemCharacterBinding
 
-class CharacterViewHolder(private val mBinding: ItemCharacterBinding)
-    : BaseViewHolder<Character, BasePagedListAdapter.OnItemClickListener<Character>>(mBinding.root) {
+class CharacterViewHolder(private val mBinding: ItemCharacterBinding,
+                          private val clickCallback: (Character) -> Unit)
+    : RecyclerView.ViewHolder(mBinding.root) {
 
-    override fun onBind(item: Character?, listener: BasePagedListAdapter.OnItemClickListener<Character>?) {
+    fun onBind(item: Character?) {
         mBinding.viewModel = item
 
         item?.let {
-            listener?.let {
-                itemView.setOnClickListener { listener.onItemClicked(item) }
-            }
+            itemView.setOnClickListener { clickCallback(item) }
         }
     }
 
-    override fun clear() {
+    fun clear() {
         mBinding.characterName.text = ""
         mBinding.characterOrigin.text = ""
         mBinding.characterSpecies.text = ""
@@ -30,8 +28,8 @@ class CharacterViewHolder(private val mBinding: ItemCharacterBinding)
     }
 
     companion object {
-        fun create(parent: ViewGroup): CharacterViewHolder {
-            return CharacterViewHolder(ItemCharacterBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        fun create(parent: ViewGroup, clickCallback: (Character) -> Unit): CharacterViewHolder {
+            return CharacterViewHolder(ItemCharacterBinding.inflate(LayoutInflater.from(parent.context), parent, false), clickCallback)
         }
     }
 }

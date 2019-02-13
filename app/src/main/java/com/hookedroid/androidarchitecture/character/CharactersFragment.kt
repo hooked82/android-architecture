@@ -8,13 +8,12 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hookedroid.androidarchitecture.BaseFragment
-import com.hookedroid.androidarchitecture.adapter.BasePagedListAdapter
 import com.hookedroid.androidarchitecture.api.model.Character
 import com.hookedroid.androidarchitecture.data.NetworkState
 import com.hookedroid.androidarchitecture.databinding.FragmentCharactersBinding
 import kotlinx.android.synthetic.main.fragment_characters.*
 
-class CharactersFragment : BaseFragment<CharactersViewModel>(), BasePagedListAdapter.OnItemClickListener<Character> {
+class CharactersFragment : BaseFragment<CharactersViewModel>() {
 
     private lateinit var mBinding: FragmentCharactersBinding
 
@@ -35,18 +34,18 @@ class CharactersFragment : BaseFragment<CharactersViewModel>(), BasePagedListAda
 
         initSwipeToRefresh()
 
-        val adapter = CharacterPagedListAdapter {
-            mViewModel.retry()
-        }
+
+
+        val adapter = CharacterPagedListAdapter(
+            { onItemClicked(it) },
+            { mViewModel.retry() }
+        )
 
         mBinding.charactersList.layoutManager = LinearLayoutManager(requireContext())
         mBinding.charactersList.adapter = adapter
 
         mViewModel.characters.observe(this, Observer {
             adapter.submitList(it)
-        })
-        mViewModel.reachedEnd.observe(this, Observer {
-            adapter.hasReachedEnd()
         })
         mViewModel.networkState.observe(this, Observer {
             adapter.setNetworkState(it)
@@ -64,7 +63,7 @@ class CharactersFragment : BaseFragment<CharactersViewModel>(), BasePagedListAda
         }
     }
 
-    override fun onItemClicked(item: Character) {
+    fun onItemClicked(item: Character) {
         Toast.makeText(requireContext(), "Item Clicked: ${item.name}", Toast.LENGTH_SHORT).show()
     }
 

@@ -1,6 +1,5 @@
 package com.hookedroid.androidarchitecture.data
 
-import android.util.Log
 import androidx.paging.PagedList
 import androidx.paging.PagingRequestHelper
 import com.hookedroid.androidarchitecture.api.CharacterApi
@@ -17,7 +16,6 @@ class CharacterBoundaryCallback(
     private val characterApi: CharacterApi,
     private val appExecutors: AppExecutors,
     private val handleResponse: (ApiResponse<Character>?) -> Unit,
-    private val handleEndResponse: () -> Unit,
     private val networkPage: Int) : PagedList.BoundaryCallback<Character>() {
 
     val helper = PagingRequestHelper(appExecutors.diskIO())
@@ -38,8 +36,6 @@ class CharacterBoundaryCallback(
             }
         } else {
             networkState.postValue(NetworkState.ENDED)
-            handleEndResponse()
-            Log.d("BoundaryCallback", "REACHED THE END")
         }
     }
 

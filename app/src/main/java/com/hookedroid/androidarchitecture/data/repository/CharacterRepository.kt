@@ -4,7 +4,6 @@ import androidx.annotation.MainThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
-import androidx.paging.PagedList
 import androidx.paging.toLiveData
 import com.hookedroid.androidarchitecture.api.CharacterApi
 import com.hookedroid.androidarchitecture.api.model.ApiResponse
@@ -29,12 +28,11 @@ class CharacterRepository @Inject constructor(private val db: ArchDb,
     }
 
     @MainThread
-    override fun getByPage(page: Int, reachedEndResponse: () -> Unit): Listing<Character> {
+    override fun getByPage(page: Int): Listing<Character> {
         val boundaryCallback = CharacterBoundaryCallback(
             characterApi,
             appExecutors,
             this::insertResultsIntoDb,
-            reachedEndResponse,
             page
         )
 
@@ -44,11 +42,7 @@ class CharacterRepository @Inject constructor(private val db: ArchDb,
         }
 
         val livePagedList = db.characterDao().getCharacters().toLiveData(
-            config = PagedList.Config.Builder()
-                .setPageSize(DEFAULT_NETWORK_PAGE_SIZE)
-                .setEnablePlaceholders(true)
-                .setPrefetchDistance(8)
-                .build(), //TODO - Started seeing what this was all about, continue where I left off
+            pageSize = DEFAULT_NETWORK_PAGE_SIZE,
             boundaryCallback = boundaryCallback
         )
 

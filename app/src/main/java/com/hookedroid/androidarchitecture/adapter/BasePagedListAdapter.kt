@@ -1,47 +1,36 @@
 package com.hookedroid.androidarchitecture.adapter
 
-import android.content.Context
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.annotation.LayoutRes
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.hookedroid.androidarchitecture.data.NetworkState
 
-abstract class BasePagedListAdapter<
-        T,
-        L : BasePagedListAdapter.OnItemClickListener<T>>(context: Context,
-                                   diffCallback: DiffUtil.ItemCallback<T>,
-                                   private val listener: L? = null)
+abstract class BasePagedListAdapter<T>(diffCallback: DiffUtil.ItemCallback<T>)
     : PagedListAdapter<T, RecyclerView.ViewHolder>(diffCallback) {
 
-    interface OnItemClickListener<T> {
-        fun onItemClicked(item: T)
+    private var _networkState: NetworkState? = null
+    val networkState
+        get() = _networkState
+
+    override fun getItemCount(): Int {
+        return super.getItemCount() + if (hasExtraRow()) 1 else 0
     }
 
-    private val mInflater: LayoutInflater = LayoutInflater.from(context)
+    fun hasExtraRow() = _networkState != null && _networkState != NetworkState.LOADED
 
-    abstract override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder
-
-//    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-//        val item = getItem(position)
-//
-//        item?.let {
-//            holder.onBind(item, listener)
-//        } ?: run {
-//            // Null defines a placeholder item.  Row will be invalidated when actual object is loaded from DB
-//            holder.clear()
-//        }
-//    }
-
-    fun inflate(@LayoutRes layout: Int, parent: ViewGroup?, attachToRoot: Boolean = false): View {
-        return mInflater.inflate(layout, parent, attachToRoot)
-    }
-
-    fun inflateBinding(@LayoutRes layout: Int, parent: ViewGroup?, attachToRoot: Boolean = false): ViewDataBinding {
-        return DataBindingUtil.inflate(mInflater, layout, parent, attachToRoot)
+    fun setNetworkState(newNetworkState: NetworkState?) {
+        val previousState = _networkState
+        val hadExtraRow = hasExtraRow()
+        _networkState = newNetworkState
+        val hasExtraRow = hasExtraRow()
+        if (hadExtraRow != hasExtraRow) {
+            if (hadExtraRow) {
+                notifyItemRemoved(super.getItemCount())
+            } else {
+                notifyItemInserted(super.getItemCount())
+            }
+        } else if (hasExtraRow && previousState != newNetworkState) {
+            notifyItemChanged(itemCount - 1)
+        }
     }
 }
