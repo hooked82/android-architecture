@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Android Architecture</string>
+    <string name="app_name">Rick and Morty</string>
 
     <!-- Titles -->
     <string name="title_characters">Characters</string>

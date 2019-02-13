@@ -9,13 +9,11 @@ import javax.inject.Inject
 class CharactersViewModel @Inject constructor(characterRepository: CharacterRepository) : ViewModel() {
 
     private val page = MutableLiveData<Int>()
-    private val repoResult = Transformations.map(page) {
-        characterRepository.getByPage(it)
-    }
+    private val repoResult = Transformations.map(page) { characterRepository.getByPage(it) }
 
-    val characters = Transformations.switchMap(repoResult) { it.pagedList }
-    val networkState = Transformations.switchMap(repoResult) { it.networkState }
-    val refreshState = Transformations.switchMap(repoResult) { it.refreshState }
+    val characters = Transformations.switchMap(repoResult) { it.pagedList }!!
+    val networkState = Transformations.switchMap(repoResult) { it.networkState }!!
+    val refreshState = Transformations.switchMap(repoResult) { it.refreshState }!!
 
     fun showCharacters(pageNumber: Int) {
         page.value = pageNumber

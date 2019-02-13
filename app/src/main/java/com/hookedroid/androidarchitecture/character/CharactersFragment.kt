@@ -17,10 +17,6 @@ class CharactersFragment : BaseFragment<CharactersViewModel>() {
 
     private lateinit var mBinding: FragmentCharactersBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         FragmentCharactersBinding.inflate(inflater, container, false).apply {
             mBinding = this
@@ -33,8 +29,6 @@ class CharactersFragment : BaseFragment<CharactersViewModel>() {
         super.onActivityCreated(savedInstanceState)
 
         initSwipeToRefresh()
-
-
 
         val adapter = CharacterPagedListAdapter(
             { onItemClicked(it) },
@@ -63,11 +57,7 @@ class CharactersFragment : BaseFragment<CharactersViewModel>() {
         }
     }
 
-    fun onItemClicked(item: Character) {
+    private fun onItemClicked(item: Character) {
         Toast.makeText(requireContext(), "Item Clicked: ${item.name}", Toast.LENGTH_SHORT).show()
-    }
-
-    companion object {
-        private const val TAG = "CharactersFragment"
     }
 }

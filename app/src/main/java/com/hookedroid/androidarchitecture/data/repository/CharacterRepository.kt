@@ -53,6 +53,7 @@ class CharacterRepository @Inject constructor(private val db: ArchDb,
                 boundaryCallback.helper.retryAllFailed()
             },
             refresh = {
+                boundaryCallback.networkState.postValue(NetworkState.LOADING)
                 refreshTrigger.value = null
             },
             refreshState = refreshState

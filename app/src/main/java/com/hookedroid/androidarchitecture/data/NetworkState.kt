@@ -1,5 +1,6 @@
 package com.hookedroid.androidarchitecture.data
 
+@Suppress("DataClassPrivateConstructor")
 data class NetworkState private constructor(
     val status: Status,
     val message: String? = null) {
