@@ -2,6 +2,7 @@ package com.hookedroid.androidarchitecture.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.hookedroid.androidarchitecture.character.CharacterDetailsViewModel
 import com.hookedroid.androidarchitecture.character.CharactersViewModel
 import com.hookedroid.androidarchitecture.episode.EpisodesViewModel
 import com.hookedroid.androidarchitecture.location.LocationsViewModel
@@ -16,6 +17,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(CharactersViewModel::class)
     abstract fun bindCharactersViewModel(charactersViewModel: CharactersViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(CharacterDetailsViewModel::class)
+    abstract fun bindCharacterDetailsViewModel(characterDetailsViewModel: CharacterDetailsViewModel): ViewModel
 
     @Binds
     @IntoMap

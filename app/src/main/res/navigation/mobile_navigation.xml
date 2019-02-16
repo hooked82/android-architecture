@@ -9,7 +9,16 @@
         android:id="@+id/nav_characters"
         android:name="com.hookedroid.androidarchitecture.character.CharactersFragment"
         android:label="@string/title_characters"
-        tools:layout="@layout/fragment_characters" />
+        tools:layout="@layout/fragment_characters" >
+        <action
+            android:id="@+id/showCharacterDetails"
+            app:destination="@id/characterDetailsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@+id/nav_characters" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_locations"
@@ -22,5 +31,24 @@
         android:name="com.hookedroid.androidarchitecture.episode.EpisodesFragment"
         android:label="@string/title_episodes"
         tools:layout="@layout/fragment_episodes" />
+    <fragment
+        android:id="@+id/characterDetailsFragment"
+        android:name="com.hookedroid.androidarchitecture.character.CharacterDetailsFragment"
+        android:label="{characterName}"
+        tools:layout="@layout/fragment_character_details">
+        <argument
+            android:name="characterId"
+            android:defaultValue="0"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_characterDetailsFragment_to_nav_locations"
+            app:destination="@id/nav_locations" />
+        <action
+            android:id="@+id/action_characterDetailsFragment_to_nav_episodes"
+            app:destination="@id/nav_episodes" />
+        <argument
+            android:name="characterName"
+            app:argType="string" />
+    </fragment>
 
 </navigation>

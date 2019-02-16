@@ -1,5 +1,6 @@
 package com.hookedroid.androidarchitecture.di
 
+import com.hookedroid.androidarchitecture.character.CharacterDetailsFragment
 import com.hookedroid.androidarchitecture.character.CharactersFragment
 import com.hookedroid.androidarchitecture.episode.EpisodesFragment
 import com.hookedroid.androidarchitecture.location.LocationsFragment
@@ -11,6 +12,9 @@ abstract class FragmentBuildersModule {
 
     @ContributesAndroidInjector
     abstract fun contributeCharactersFragment(): CharactersFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeCharacterDetailsFragment(): CharacterDetailsFragment
 
     @ContributesAndroidInjector
     abstract fun contributeLocationsFragment(): LocationsFragment

@@ -8,14 +8,49 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
+                  <entry key="characterDetailsFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-1053" />
+                            <option name="y" value="-1279" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_characterDetailsFragment_to_nav_episodes">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_characterDetailsFragment_to_nav_locations">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="nav_characters">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-577" />
-                            <option name="y" value="-247" />
+                            <option name="x" value="-1266" />
+                            <option name="y" value="-1278" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_nav_characters_to_characterDetailsFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -25,8 +60,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-192" />
-                            <option name="y" value="-248" />
+                            <option name="x" value="-639" />
+                            <option name="y" value="-962" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -37,8 +72,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-387" />
-                            <option name="y" value="-248" />
+                            <option name="x" value="-638" />
+                            <option name="y" value="-1275" />
                           </Point>
                         </option>
                       </LayoutPositions>
