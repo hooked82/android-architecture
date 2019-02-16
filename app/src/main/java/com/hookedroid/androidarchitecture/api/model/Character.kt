@@ -17,8 +17,7 @@ data class Character(@PrimaryKey val id: Int,
                      @SerializedName("image") val imageUrl: String,
                      @SerializedName("episode") val episodes: List<String>,
                      val url: String,
-                     @SerializedName("created") val createdDate: String,
-                     val position: Int) {
+                     @SerializedName("created") val createdDate: String) {
     companion object {
         val diffCallback = object : DiffUtil.ItemCallback<Character>() {
             override fun areItemsTheSame(oldItem: Character, newItem: Character): Boolean {

@@ -11,7 +11,6 @@ import com.hookedroid.androidarchitecture.BaseFragment
 import com.hookedroid.androidarchitecture.api.model.Character
 import com.hookedroid.androidarchitecture.data.NetworkState
 import com.hookedroid.androidarchitecture.databinding.FragmentCharactersBinding
-import kotlinx.android.synthetic.main.fragment_characters.*
 
 class CharactersFragment : BaseFragment<CharactersViewModel>() {
 
@@ -49,10 +48,10 @@ class CharactersFragment : BaseFragment<CharactersViewModel>() {
 
     private fun initSwipeToRefresh() {
         mViewModel.refreshState.observe(this, Observer {
-            refresh_layout.isRefreshing = it == NetworkState.LOADING
+            mBinding.refreshLayout.isRefreshing = it == NetworkState.LOADING
         })
 
-        refresh_layout.setOnRefreshListener {
+        mBinding.refreshLayout.setOnRefreshListener {
             mViewModel.refresh()
         }
     }

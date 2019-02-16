@@ -4,7 +4,9 @@ import android.app.Application
 import androidx.room.Room
 import com.hookedroid.androidarchitecture.BuildConfig
 import com.hookedroid.androidarchitecture.api.CharacterApi
+import com.hookedroid.androidarchitecture.api.LocationApi
 import com.hookedroid.androidarchitecture.data.dao.CharacterDao
+import com.hookedroid.androidarchitecture.data.dao.LocationDao
 import com.hookedroid.androidarchitecture.data.db.ArchDb
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import dagger.Module
@@ -34,6 +36,12 @@ open class AppModule {
 
     @Singleton
     @Provides
+    open fun provideLocationDao(db: ArchDb): LocationDao {
+        return db.locationDao()
+    }
+
+    @Singleton
+    @Provides
     open fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BuildConfig.API_URL)
@@ -47,6 +55,12 @@ open class AppModule {
     @Provides
     fun provideCharacterApi(retrofit: Retrofit): CharacterApi {
         return retrofit.create(CharacterApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideLocationApi(retrofit: Retrofit): LocationApi {
+        return retrofit.create(LocationApi::class.java)
     }
 
     private fun getOkHttpClient(): OkHttpClient {

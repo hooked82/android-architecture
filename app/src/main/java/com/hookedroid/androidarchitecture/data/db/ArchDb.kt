@@ -8,13 +8,15 @@ import com.hookedroid.androidarchitecture.api.model.Episode
 import com.hookedroid.androidarchitecture.api.model.Location
 import com.hookedroid.androidarchitecture.data.converters.RoomConverters
 import com.hookedroid.androidarchitecture.data.dao.CharacterDao
+import com.hookedroid.androidarchitecture.data.dao.LocationDao
 
 @Database(
     entities = [ Character::class, Location::class, Episode::class ],
-    version = 4,
+    version = 5,
     exportSchema = false
 )
 @TypeConverters(RoomConverters::class)
 abstract class ArchDb : RoomDatabase() {
     abstract fun characterDao(): CharacterDao
+    abstract fun locationDao(): LocationDao
 }

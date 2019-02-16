@@ -45,7 +45,7 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_nav_characters_to_characterDetailsFragment">
+                            <entry key="showCharacterDetails">
                               <value>
                                 <LayoutPositions />
                               </value>
